@@ -1,0 +1,17 @@
+name: navigation_drawer_menu
+description: Flutter Material Design Navigation Drawer Menu
+version: 0.1.0-beta
+# homepage: https://github.com/MelbourneDeveloper/navigation_drawer_menu
+
+environment:
+  sdk: ">=2.14.0-377.8.beta <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  material: ^1.0.0+2
+
+dev_dependencies:
+  lints: ^1.0.1
+  pedantic: ^1.11.1
+  test:
