@@ -4,15 +4,23 @@
 
 [Navigation drawer](https://material.io/components/navigation-drawer) is a common UI pattern for adaptive menus. The [Material Design](https://material.io/) documentation formalizes the behavior of the menu but this pattern is not peculiar to Material Design. The pattern includes a basic Hamburger menu but isn't limited to small screens. The menu pattern suits all screen sizes. On larger width screens you see the icon and text, smaller screens will display icons only, and on phones, the menu will disappear during normal use and slide in with the hamburger icon.
 
-![Hamburger Menu](https://github.com/MelbourneDeveloper/navigation_drawer_menu/blob/main/Documentation/Images/Hamburger.gif) 
+![Hamburger Menu](https://github.com/MelbourneDeveloper/navigation_drawer_menu/blob/main/Documentation/Images/Android.gif) 
+
+### Beta
+
+This widget is in beta and the public interface is likely to change
 
 ## Example
 
 The example aims to implement the Navigation Drawer pattern documented above. This is a work in progress and conformance to the behavior in the Material Design documentation is the long term aim. Pull requests to fix behavior are welcome. The example works on all form factors: desktop and tablet (landscape, portrait), phone, and web. Try resizing the width of the window to see how the behavior changes. Most of the behavior exists in the example. the aim is to create a new widget which will replace `Scaffold` and allow you to spin up new apps with this functionality very quickly.
 
+Note: if you're just looking for a simple drawer menu that doesn't adapt to the screen, check out [this](https://flutter.dev/docs/cookbook/design/drawer).
+
 ![Hamburger Menu](https://github.com/MelbourneDeveloper/navigation_drawer_menu/blob/main/Documentation/Images/Hamburger2.gif) 
 
 ![Hamburger Menu](https://github.com/MelbourneDeveloper/navigation_drawer_menu/blob/main/Documentation/Images/chrome.png) 
+
+![Hamburger Menu](https://github.com/MelbourneDeveloper/navigation_drawer_menu/blob/main/Documentation/Images/Hamburger.gif)
 
 ### Run the Example
 
