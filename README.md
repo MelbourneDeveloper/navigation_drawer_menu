@@ -30,9 +30,14 @@ The example aims to implement the Navigation Drawer pattern documented above. Th
 
 ![Hamburger Menu](https://github.com/MelbourneDeveloper/navigation_drawer_menu/blob/main/Documentation/Images/Hamburger2.gif) 
 
+![Hamburger Menu](https://github.com/MelbourneDeveloper/navigation_drawer_menu/blob/main/Documentation/Images/chrome.png) 
+
 ### Run the Example
 
-Add platforms by running these commands in the root folder (not example folder)
+- Open the root folder in Visual Studio Code
+- Open a terminal window
+- Add platforms by running these commands in the root folder (not example folder)
+- Click Run -> Start Debugging
 
 ```
 flutter create example --platforms=windows,macos,linux
