@@ -16,6 +16,8 @@ The example aims to implement the Navigation Drawer pattern documented above. Th
 
 ![Hamburger Menu](https://github.com/MelbourneDeveloper/navigation_drawer_menu/blob/main/Documentation/Images/Hamburger.gif)
 
+Note: if you're just looking for a simple drawer menu that doesn't adapt to the screen, check out [this](https://flutter.dev/docs/cookbook/design/drawer).
+
 ### Run the Example
 
 - Open the root folder in Visual Studio Code
