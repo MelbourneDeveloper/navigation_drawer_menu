@@ -8,7 +8,7 @@
 
 ## Example
 
-The example aims to implement the Navigation Drawer pattern documented above. This is a work in progress and conformance to the behavior in the Material Design documentation is the long term aim. Pull requests to fix behavior are welcome. The example works on all form factors: desktop and tablet (landscape, portrait), phone, and web. Try resizing the width of the window to see how the behavior changes.
+The example aims to implement the Navigation Drawer pattern documented above. This is a work in progress and conformance to the behavior in the Material Design documentation is the long term aim. Pull requests to fix behavior are welcome. The example works on all form factors: desktop and tablet (landscape, portrait), phone, and web. Try resizing the width of the window to see how the behavior changes. Most of the behavior exists in the example. the aim is to create a new widget which will replace `Scaffold` and allow you to spin up new apps with this functionality very quickly.
 
 ![Hamburger Menu](https://github.com/MelbourneDeveloper/navigation_drawer_menu/blob/main/Documentation/Images/Hamburger2.gif) 
 
