@@ -24,11 +24,20 @@ final menuItems = [
 ];
 ```
 
+## Example
 
-## Run the Example
+The example aims to implement the Navigation Drawer pattern documented above. The example works on all form factors: desktop and tablet (landscape, portrait), phone, and web. Try resizing the width of the window to see how the behavior changes.
 
-Install the desktop platforms
+![Hamburger Menu](https://github.com/MelbourneDeveloper/navigation_drawer_menu/blob/main/Documentation/Images/Hamburger2.gif) 
+
+### Run the Example
+
+Add platforms by running these commands in the root folder (not example folder)
 
 ```
 flutter create example --platforms=windows,macos,linux
+
+flutter create --platforms=web
+
+flutter create --platforms=android
 ```
