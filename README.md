@@ -24,8 +24,13 @@ final menuItems = [
 ];
 ```
 
+## Example
 
-## Run the Example
+The example aims to implement the Navigation Drawer pattern documented above. The example works on all form factors: desktop and tablet (landscape, portrait), phone, and web. Try resizing the width of the window to see how the behavior changes.
+
+![Hamburger Menu](https://github.com/MelbourneDeveloper/navigation_drawer_menu/blob/main/Documentation/Images/Hamburger2.gif) 
+
+### Run the Example
 
 Install the desktop platforms
 
