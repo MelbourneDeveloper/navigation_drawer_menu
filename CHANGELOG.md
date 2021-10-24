@@ -1,1 +1,1 @@
-- 2021 October 24th | Create the package and example
+- 0.1.0-beta | Create the package and example
