@@ -32,8 +32,12 @@ The example aims to implement the Navigation Drawer pattern documented above. Th
 
 ### Run the Example
 
-Install the desktop platforms
+Add platforms by running these commands in the root folder (not example folder)
 
 ```
 flutter create example --platforms=windows,macos,linux
+
+flutter create --platforms=web
+
+flutter create --platforms=android
 ```
