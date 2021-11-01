@@ -1,1 +1,2 @@
 - 0.1.0-beta | Create the package and example
+- 0.2.0-beta | Fix the exception: FlutterError Incorrect use of ParentDataWidget
