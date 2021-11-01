@@ -90,13 +90,13 @@ class NavigationDrawerMenu extends StatefulWidget {
       : super(key: key);
 
   @override
-  NavigationDrawerMenuState createState() => NavigationDrawerMenuState(
+  _NavigationDrawerMenuState createState() => _NavigationDrawerMenuState(
       selectedMenuKey, onSelectionChanged, menuItemContentList);
 }
 
 //TODO: Hide this type from external assemblies other than test.
-class NavigationDrawerMenuState extends State<NavigationDrawerMenu> {
-  NavigationDrawerMenuState(
+class _NavigationDrawerMenuState extends State<NavigationDrawerMenu> {
+  _NavigationDrawerMenuState(
       this._selectedMenuKey, this.onSelectionChanged, this.menuItems) {
     _selectedMenuKey.addListener(_refresh);
     menuItems.addListener(_refresh);
