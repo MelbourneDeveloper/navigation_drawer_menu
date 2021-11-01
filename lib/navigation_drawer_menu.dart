@@ -48,18 +48,16 @@ class _MenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Builder(
-        builder: (context) => Expanded(
-            child: SizedBox(
-                height: menuButtonHeight,
-                child: TextButton(
-                  onPressed: onPressed,
-                  style: TextButton.styleFrom(
-                      backgroundColor: isSelected
-                          ? getHighlightColor()
-                          : Colors.transparent),
-                  child: buildMenuItemContent(
-                      menuButtonDefinition, isSelected, context),
-                ))),
+        builder: (context) => SizedBox(
+            height: menuButtonHeight,
+            child: TextButton(
+              onPressed: onPressed,
+              style: TextButton.styleFrom(
+                  backgroundColor:
+                      isSelected ? getHighlightColor() : Colors.transparent),
+              child: buildMenuItemContent(
+                  menuButtonDefinition, isSelected, context),
+            )),
       );
 }
 
@@ -125,20 +123,20 @@ class NavigationDrawerMenuState extends State<NavigationDrawerMenu> {
       padding: widget.itemPadding,
       child: _MenuItem(
         menuButtonDefinition: menuButtonDefinition,
-      menuButtonHeight: widget.itemHeight,
-      getHighlightColor: widget.getHighlightColor,
-      key: menuButtonDefinition.key,
-      selectedItemKey: _selectedMenuKey.value,
-      iconData: menuButtonDefinition.iconData,
-      buildMenuItemContent: widget.buildMenuButtonContent,
-      onPressed: () {
-        if (widget.autoSelect) {
-          _selectedMenuKey.value = menuButtonDefinition.key;
-        }
+        menuButtonHeight: widget.itemHeight,
+        getHighlightColor: widget.getHighlightColor,
+        key: menuButtonDefinition.key,
+        selectedItemKey: _selectedMenuKey.value,
+        iconData: menuButtonDefinition.iconData,
+        buildMenuItemContent: widget.buildMenuButtonContent,
+        onPressed: () {
+          if (widget.autoSelect) {
+            _selectedMenuKey.value = menuButtonDefinition.key;
+          }
 
-        setState(() {
-          onSelectionChanged(menuButtonDefinition.key);
-        });
+          setState(() {
+            onSelectionChanged(menuButtonDefinition.key);
+          });
         },
       ),
     );
