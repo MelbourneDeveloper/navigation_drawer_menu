@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// The definition of the Menu Item that will be rendered
 @immutable
 class MenuItemDefinition {
   MenuItemDefinition(this.text, this.key, {this.iconData});
@@ -9,6 +10,7 @@ class MenuItemDefinition {
   final IconData? iconData;
 }
 
+// Defines the content that will appear in the menu.
 @immutable
 class MenuItemContent {
   MenuItemContent(this.menuItem) {
