@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-// The definition of the Menu Item that will be rendered
+/// The definition of the Menu Item that will be rendered
 @immutable
 class MenuItemDefinition {
   MenuItemDefinition(this.text, this.key, {this.iconData});
@@ -10,7 +10,7 @@ class MenuItemDefinition {
   final IconData? iconData;
 }
 
-// Defines the content that will appear in the menu.
+/// Defines the content that will appear in the menu.
 @immutable
 class MenuItemContent {
   MenuItemContent(this.menuItem) {
@@ -64,7 +64,7 @@ class _MenuItem extends StatelessWidget {
 }
 
 class NavigationDrawerMenu extends StatefulWidget {
-  // Whether or not clicking a menu item automatically selects it
+  /// Whether or not clicking a menu item automatically selects it
   final bool autoSelect;
   final double itemHeight;
   final Color Function() getHighlightColor;
@@ -72,12 +72,14 @@ class NavigationDrawerMenu extends StatefulWidget {
   final Widget Function(MenuItemDefinition menuButtonDefinition,
       bool isSelected, BuildContext context) buildMenuButtonContent;
 
-  // Notifies listeners when the user selects a menu item
+  /// Notifies listeners when the user selects a menu item
   final ValueChanged<Key> onSelectionChanged;
-  // The current menu index, and the mechanism for listening to the change of
-  // the index externally
+
+  /// The current menu index, and the mechanism for listening to the change of
+  /// the index externally
   final ValueNotifier<Key?> selectedMenuKey;
-  //The list of widgets that appear in the menu
+
+  /// The list of widgets that appear in the menu
   final ValueNotifier<List<MenuItemContent>> menuItemContentList;
   NavigationDrawerMenu(
       {required this.onSelectionChanged,
@@ -96,7 +98,6 @@ class NavigationDrawerMenu extends StatefulWidget {
       selectedMenuKey, onSelectionChanged, menuItemContentList);
 }
 
-//TODO: Hide this type from external assemblies other than test.
 class _NavigationDrawerMenuState extends State<NavigationDrawerMenu> {
   _NavigationDrawerMenuState(
       this._selectedMenuKey, this.onSelectionChanged, this.menuItems) {
