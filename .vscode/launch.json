@@ -5,7 +5,7 @@
             "name": "Menu Sample",
             "request": "launch",
             "type": "dart",
-            "program": "lib/main.dart",
+            "program": "example/lib/main.dart",
             "deviceId": "windows"
         },
     ]
