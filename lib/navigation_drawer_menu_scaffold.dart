@@ -11,11 +11,13 @@ class NavigationDrawerScaffold extends StatefulWidget {
   final double? minimumWidthForThickMenu;
   final double? minimumWidthForMenu;
   final PreferredSizeWidget Function(Function() toggle) getAppBar;
+  final Widget Function() getBody;
 
   const NavigationDrawerScaffold(
       {Key? key,
       required this.initialMenuItemKey,
       required this.menuItems,
+      required this.getBody,
       this.title,
       this.menuColor,
       this.minimumWidthForThickMenu,
@@ -34,7 +36,8 @@ class NavigationDrawerScaffold extends StatefulWidget {
           menuItems,
           minimumWidthForMenu ?? 500,
           minimumWidthForThickMenu ?? 700,
-          getAppBar);
+          getAppBar,
+          getBody);
 }
 
 class _NavigationDrawerScaffoldState extends State<NavigationDrawerScaffold> {
@@ -47,6 +50,7 @@ class _NavigationDrawerScaffoldState extends State<NavigationDrawerScaffold> {
   final double minimumWidthForThickMenu;
   final double minimumWidthForMenu;
   final PreferredSizeWidget Function(Function() toggle) getAppBar;
+  final Widget Function() getBody;
 
   _NavigationDrawerScaffoldState(
       this.title,
@@ -55,7 +59,8 @@ class _NavigationDrawerScaffoldState extends State<NavigationDrawerScaffold> {
       this.menuItems,
       this.minimumWidthForMenu,
       this.minimumWidthForThickMenu,
-      this.getAppBar) {
+      this.getAppBar,
+      this.getBody) {
     valueNotifier = ValueNotifier<Key>(initialKey);
   }
 
@@ -115,12 +120,7 @@ class _NavigationDrawerScaffoldState extends State<NavigationDrawerScaffold> {
                         child: Container(
                             color: menuColor, child: getMenu(context))),
                 ]),
-                Expanded(
-                    child: Container(
-                        alignment: Alignment.center,
-                        height: double.maxFinite,
-                        color: Colors.black,
-                        child: const Text('Hello')))
+                Expanded(child: getBody())
               ])));
     });
   }

@@ -51,6 +51,11 @@ class _MyAppState extends State<MyApp> {
           menuItems: menuItems,
           menuColor: menuColor,
           initialMenuItemKey: alarmValueKey,
+          getBody: () => Container(
+              alignment: Alignment.center,
+              height: double.maxFinite,
+              color: Colors.pink,
+              child: const Text('Hello')),
           getAppBar: (toggle) => AppBar(
             title: const Text(title),
             leading: Builder(
