@@ -5,7 +5,7 @@ enum MenuMode { Drawer, Thin, Thick }
 
 class NavigationDrawerScaffold extends StatefulWidget {
   final String? title;
-  final Key initialKey;
+  final Key initialMenuItemKey;
   final Color? menuColor;
   final List<MenuItemContent> menuItems;
   final double? minimumWidthForThickMenu;
@@ -13,7 +13,7 @@ class NavigationDrawerScaffold extends StatefulWidget {
 
   const NavigationDrawerScaffold(
       {Key? key,
-      required this.initialKey,
+      required this.initialMenuItemKey,
       required this.menuItems,
       this.title,
       this.menuColor,
@@ -25,7 +25,7 @@ class NavigationDrawerScaffold extends StatefulWidget {
   State<NavigationDrawerScaffold> createState() =>
       _NavigationDrawerScaffoldState(
           title ?? 'Menu',
-          initialKey,
+          initialMenuItemKey,
           menuColor ?? Colors.black,
           menuItems,
           minimumWidthForMenu ?? 500,
@@ -72,54 +72,45 @@ class _NavigationDrawerScaffoldState extends State<NavigationDrawerScaffold> {
 
   @override
   Widget build(BuildContext cont) {
-    return MaterialApp(
-        title: title,
-        theme: ThemeData(
-            brightness: Brightness.dark,
-            textTheme:
-                const TextTheme(bodyText2: TextStyle(color: Color(0xFFFFFFFF))),
-            primaryColor: Colors.white,
-            backgroundColor: Colors.black),
-        home: Builder(builder: (context) {
-          if (getMenuMode(isThin, context) != MenuMode.Drawer) {
-            _scaffoldKey.currentState?.openEndDrawer();
-          }
+    return Builder(builder: (context) {
+      if (getMenuMode(isThin, context) != MenuMode.Drawer) {
+        _scaffoldKey.currentState?.openEndDrawer();
+      }
 
-          return Scaffold(
-              key: _scaffoldKey,
-              appBar: AppBar(
-                title: Text(title),
-                leading: Builder(
-                    builder: (context) => IconButton(
-                          icon: const Icon(Icons.menu),
-                          onPressed: () {
-                            isThin = !isThin;
-                            toggleDrawer(getMenuMode(isThin, context));
-                          },
-                          tooltip: 'Toggle the menu',
-                        )),
-              ),
-              drawer: Column(
+      return Scaffold(
+          key: _scaffoldKey,
+          appBar: AppBar(
+            title: Text(title),
+            leading: Builder(
+                builder: (context) => IconButton(
+                      icon: const Icon(Icons.menu),
+                      onPressed: () {
+                        isThin = !isThin;
+                        toggleDrawer(getMenuMode(isThin, context));
+                      },
+                      tooltip: 'Toggle the menu',
+                    )),
+          ),
+          drawer: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (getMenuMode(isThin, context) == MenuMode.Drawer)
+                  getMenu(context)
+              ]),
+          body: Container(
+              color: menuColor,
+              child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (getMenuMode(isThin, context) == MenuMode.Drawer)
-                      getMenu(context)
-                  ]),
-              body: Container(
-                  color: menuColor,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (getMenuMode(isThin, context) != MenuMode.Drawer)
-                          SizedBox(
-                              width:
-                                  getMenuMode(isThin, context) == MenuMode.Thin
-                                      ? 60
-                                      : 200,
-                              child: Container(
-                                  color: menuColor, child: getMenu(context)))
-                      ])));
-        }));
+                    if (getMenuMode(isThin, context) != MenuMode.Drawer)
+                      SizedBox(
+                          width: getMenuMode(isThin, context) == MenuMode.Thin
+                              ? 60
+                              : 200,
+                          child: Container(
+                              color: menuColor, child: getMenu(context)))
+                  ])));
+    });
   }
 
   NavigationDrawerMenu getMenu(BuildContext context) => NavigationDrawerMenu(
