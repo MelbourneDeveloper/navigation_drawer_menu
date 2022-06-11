@@ -10,6 +10,7 @@ class NavigationDrawerScaffold extends StatefulWidget {
   final List<MenuItemContent> menuItems;
   final double? minimumWidthForThickMenu;
   final double? minimumWidthForMenu;
+  final PreferredSizeWidget Function(Function() toggle) getAppBar;
 
   const NavigationDrawerScaffold(
       {Key? key,
@@ -18,7 +19,10 @@ class NavigationDrawerScaffold extends StatefulWidget {
       this.title,
       this.menuColor,
       this.minimumWidthForThickMenu,
-      this.minimumWidthForMenu})
+      this.minimumWidthForMenu,
+
+      ///Is this OK? The widget might get old...
+      required this.getAppBar})
       : super(key: key);
 
   @override
@@ -29,7 +33,8 @@ class NavigationDrawerScaffold extends StatefulWidget {
           menuColor ?? Colors.black,
           menuItems,
           minimumWidthForMenu ?? 500,
-          minimumWidthForThickMenu ?? 700);
+          minimumWidthForThickMenu ?? 700,
+          getAppBar);
 }
 
 class _NavigationDrawerScaffoldState extends State<NavigationDrawerScaffold> {
@@ -41,9 +46,16 @@ class _NavigationDrawerScaffoldState extends State<NavigationDrawerScaffold> {
   final List<MenuItemContent> menuItems;
   final double minimumWidthForThickMenu;
   final double minimumWidthForMenu;
+  final PreferredSizeWidget Function(Function() toggle) getAppBar;
 
-  _NavigationDrawerScaffoldState(this.title, Key initialKey, this.menuColor,
-      this.menuItems, this.minimumWidthForMenu, this.minimumWidthForThickMenu) {
+  _NavigationDrawerScaffoldState(
+      this.title,
+      Key initialKey,
+      this.menuColor,
+      this.menuItems,
+      this.minimumWidthForMenu,
+      this.minimumWidthForThickMenu,
+      this.getAppBar) {
     valueNotifier = ValueNotifier<Key>(initialKey);
   }
 
@@ -70,6 +82,11 @@ class _NavigationDrawerScaffoldState extends State<NavigationDrawerScaffold> {
     }
   }
 
+  void toggle() {
+    isThin = !isThin;
+    toggleDrawer(getMenuMode(isThin, context));
+  }
+
   @override
   Widget build(BuildContext cont) {
     return Builder(builder: (context) {
@@ -79,18 +96,7 @@ class _NavigationDrawerScaffoldState extends State<NavigationDrawerScaffold> {
 
       return Scaffold(
           key: _scaffoldKey,
-          appBar: AppBar(
-            title: Text(title),
-            leading: Builder(
-                builder: (context) => IconButton(
-                      icon: const Icon(Icons.menu),
-                      onPressed: () {
-                        isThin = !isThin;
-                        toggleDrawer(getMenuMode(isThin, context));
-                      },
-                      tooltip: 'Toggle the menu',
-                    )),
-          ),
+          appBar: getAppBar(toggle),
           drawer: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

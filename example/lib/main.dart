@@ -51,6 +51,15 @@ class _MyAppState extends State<MyApp> {
           menuItems: menuItems,
           menuColor: menuColor,
           initialMenuItemKey: alarmValueKey,
+          getAppBar: (toggle) => AppBar(
+            title: const Text(title),
+            leading: Builder(
+                builder: (context) => IconButton(
+                      icon: const Icon(Icons.menu),
+                      onPressed: toggle,
+                      tooltip: 'Toggle the menu',
+                    )),
+          ),
         ));
   }
 }
