@@ -37,22 +37,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final ValueNotifier<Key> valueNotifier = ValueNotifier<Key>(alarmValueKey);
-  bool isThin = false;
-
-  void toggleDrawer(MenuMode menuMode) {
-    if (menuMode != MenuMode.Drawer) {
-      setState(() {});
-    } else {
-      if (_scaffoldKey.currentState!.isDrawerOpen) {
-        _scaffoldKey.currentState!.openEndDrawer();
-      } else {
-        _scaffoldKey.currentState!.openDrawer();
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext cont) {
     return MaterialApp(
@@ -65,6 +49,7 @@ class _MyAppState extends State<MyApp> {
             backgroundColor: Colors.black),
         home: NavigationDrawerScaffold(
           menuItems: menuItems,
+          menuColor: menuColor,
           initialMenuItemKey: alarmValueKey,
         ));
   }
