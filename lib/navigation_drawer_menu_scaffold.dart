@@ -41,9 +41,10 @@ class NavigationDrawerScaffold extends StatefulWidget {
 
 class _NavigationDrawerScaffoldState extends State<NavigationDrawerScaffold> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  bool isThin = false;
+  bool _isThin = false;
 
   Color menuColor;
+  //TODO: How do we know when these change?
   final List<MenuItemContent> menuItems;
   final double minimumWidthForThickMenu;
   final double minimumWidthForMenu;
@@ -84,14 +85,14 @@ class _NavigationDrawerScaffoldState extends State<NavigationDrawerScaffold> {
   }
 
   void toggle() {
-    isThin = !isThin;
-    toggleDrawer(getMenuMode(isThin, context));
+    _isThin = !_isThin;
+    toggleDrawer(getMenuMode(_isThin, context));
   }
 
   @override
   Widget build(BuildContext cont) {
     return Builder(builder: (context) {
-      if (getMenuMode(isThin, context) != MenuMode.Drawer) {
+      if (getMenuMode(_isThin, context) != MenuMode.Drawer) {
         _scaffoldKey.currentState?.openEndDrawer();
       }
 
@@ -101,16 +102,16 @@ class _NavigationDrawerScaffoldState extends State<NavigationDrawerScaffold> {
           drawer: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (getMenuMode(isThin, context) == MenuMode.Drawer)
+                if (getMenuMode(_isThin, context) == MenuMode.Drawer)
                   getMenu(context)
               ]),
           body: Container(
               color: menuColor,
               child: Row(children: [
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  if (getMenuMode(isThin, context) != MenuMode.Drawer)
+                  if (getMenuMode(_isThin, context) != MenuMode.Drawer)
                     SizedBox(
-                        width: getMenuMode(isThin, context) == MenuMode.Thin
+                        width: getMenuMode(_isThin, context) == MenuMode.Thin
                             ? 60
                             : 200,
                         child: Container(
@@ -123,14 +124,14 @@ class _NavigationDrawerScaffoldState extends State<NavigationDrawerScaffold> {
 
   NavigationDrawerMenu getMenu(BuildContext context) => NavigationDrawerMenu(
       getHighlightColor: () => Theme.of(context).indicatorColor,
-      onSelectionChanged: (key) => toggleDrawer(getMenuMode(isThin, context)),
+      onSelectionChanged: (key) => toggleDrawer(getMenuMode(_isThin, context)),
       menuItemContentList: ValueNotifier(menuItems),
       selectedMenuKey: selectedMenuKey,
       itemHeight: 60,
       itemPadding: const EdgeInsets.only(left: 5, right: 5),
       buildMenuButtonContent: (mbd, isSelected, bc) => Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: getMenuMode(isThin, context) != MenuMode.Thin
+          children: getMenuMode(_isThin, context) != MenuMode.Thin
               ? [
                   getIcon(mbd, isSelected, bc),
                   const SizedBox(
