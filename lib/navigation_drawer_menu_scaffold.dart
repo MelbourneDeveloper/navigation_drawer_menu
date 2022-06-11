@@ -105,17 +105,23 @@ class _NavigationDrawerScaffoldState extends State<NavigationDrawerScaffold> {
               ]),
           body: Container(
               color: menuColor,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    if (getMenuMode(isThin, context) != MenuMode.Drawer)
-                      SizedBox(
-                          width: getMenuMode(isThin, context) == MenuMode.Thin
-                              ? 60
-                              : 200,
-                          child: Container(
-                              color: menuColor, child: getMenu(context)))
-                  ])));
+              child: Row(children: [
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  if (getMenuMode(isThin, context) != MenuMode.Drawer)
+                    SizedBox(
+                        width: getMenuMode(isThin, context) == MenuMode.Thin
+                            ? 60
+                            : 200,
+                        child: Container(
+                            color: menuColor, child: getMenu(context))),
+                ]),
+                Expanded(
+                    child: Container(
+                        alignment: Alignment.center,
+                        height: double.maxFinite,
+                        color: Colors.black,
+                        child: const Text('Hello')))
+              ])));
     });
   }
 
