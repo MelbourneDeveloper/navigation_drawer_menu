@@ -37,6 +37,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final selectedMenuKey = ValueNotifier<Key>(alarmValueKey);
+
+  _MyAppState() {
+    selectedMenuKey.addListener(() {
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext cont) {
     return MaterialApp(
@@ -50,12 +58,16 @@ class _MyAppState extends State<MyApp> {
         home: NavigationDrawerScaffold(
           menuItems: menuItems,
           menuColor: menuColor,
-          initialMenuItemKey: alarmValueKey,
+          selectedMenuKey: selectedMenuKey,
           getBody: () => Container(
               alignment: Alignment.center,
               height: double.maxFinite,
               color: Colors.pink,
-              child: const Text('Hello')),
+              child: Icon(menuItems
+                  .firstWhere((element) =>
+                      element.menuItem?.key == selectedMenuKey.value)
+                  .menuItem!
+                  .iconData)),
           getAppBar: (toggle) => AppBar(
             title: const Text(title),
             leading: Builder(

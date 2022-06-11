@@ -4,8 +4,9 @@ import 'package:navigation_drawer_menu/navigation_drawer_menu.dart';
 enum MenuMode { Drawer, Thin, Thick }
 
 class NavigationDrawerScaffold extends StatefulWidget {
-  final String? title;
-  final Key initialMenuItemKey;
+  /// The current menu index, and the mechanism for listening to the change of
+  /// the index externally
+  final ValueNotifier<Key?> selectedMenuKey;
   final Color? menuColor;
   final List<MenuItemContent> menuItems;
   final double? minimumWidthForThickMenu;
@@ -15,10 +16,9 @@ class NavigationDrawerScaffold extends StatefulWidget {
 
   const NavigationDrawerScaffold(
       {Key? key,
-      required this.initialMenuItemKey,
+      required this.selectedMenuKey,
       required this.menuItems,
       required this.getBody,
-      this.title,
       this.menuColor,
       this.minimumWidthForThickMenu,
       this.minimumWidthForMenu,
@@ -30,8 +30,7 @@ class NavigationDrawerScaffold extends StatefulWidget {
   @override
   State<NavigationDrawerScaffold> createState() =>
       _NavigationDrawerScaffoldState(
-          title ?? 'Menu',
-          initialMenuItemKey,
+          selectedMenuKey,
           menuColor ?? Colors.black,
           menuItems,
           minimumWidthForMenu ?? 500,
@@ -42,27 +41,24 @@ class NavigationDrawerScaffold extends StatefulWidget {
 
 class _NavigationDrawerScaffoldState extends State<NavigationDrawerScaffold> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  late final ValueNotifier<Key> valueNotifier;
   bool isThin = false;
-  String title;
+
   Color menuColor;
   final List<MenuItemContent> menuItems;
   final double minimumWidthForThickMenu;
   final double minimumWidthForMenu;
   final PreferredSizeWidget Function(Function() toggle) getAppBar;
   final Widget Function() getBody;
+  final ValueNotifier<Key?> selectedMenuKey;
 
   _NavigationDrawerScaffoldState(
-      this.title,
-      Key initialKey,
+      this.selectedMenuKey,
       this.menuColor,
       this.menuItems,
       this.minimumWidthForMenu,
       this.minimumWidthForThickMenu,
       this.getAppBar,
-      this.getBody) {
-    valueNotifier = ValueNotifier<Key>(initialKey);
-  }
+      this.getBody);
 
   MenuMode getMenuMode(bool isThin, BuildContext cont) {
     final width = MediaQuery.of(cont).size.width;
@@ -129,7 +125,7 @@ class _NavigationDrawerScaffoldState extends State<NavigationDrawerScaffold> {
       getHighlightColor: () => Theme.of(context).indicatorColor,
       onSelectionChanged: (key) => toggleDrawer(getMenuMode(isThin, context)),
       menuItemContentList: ValueNotifier(menuItems),
-      selectedMenuKey: valueNotifier,
+      selectedMenuKey: selectedMenuKey,
       itemHeight: 60,
       itemPadding: const EdgeInsets.only(left: 5, right: 5),
       buildMenuButtonContent: (mbd, isSelected, bc) => Row(
