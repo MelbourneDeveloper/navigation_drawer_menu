@@ -50,7 +50,7 @@ extension on BuildContext {
 
 class _MyAppState extends State<MyApp> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final ValueNotifier<Key> valueNotifier = ValueNotifier<Key>(alarmValueKey);
+  final ValueKey<String> selectedMenuKey = alarmValueKey;
   bool isThin = false;
 
   void toggleDrawer(MenuMode menuMode) {
@@ -118,10 +118,10 @@ class _MyAppState extends State<MyApp> {
   }
 
   NavigationDrawerMenu getMenu(BuildContext context) => NavigationDrawerMenu(
-      getHighlightColor: () => Theme.of(context).indicatorColor,
-      onSelectionChanged: (key) => toggleDrawer(context.getMenuMode(isThin)),
-      menuItemContentList: ValueNotifier(menuItems),
-      selectedMenuKey: valueNotifier,
+      highlightColor: Theme.of(context).indicatorColor,
+      onSelectionChanged: (c, key) => toggleDrawer(context.getMenuMode(isThin)),
+      menuItems: menuItems,
+      selectedMenuKey: selectedMenuKey,
       itemHeight: 60,
       itemPadding: const EdgeInsets.only(left: 5, right: 5),
       buildMenuButtonContent: (mbd, isSelected, bc) => Row(
