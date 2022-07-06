@@ -76,7 +76,10 @@ class _MyAppState extends State<MyApp> {
 
   NavigationDrawerMenu getMenu(BuildContext context) => NavigationDrawerMenu(
       highlightColor: Theme.of(context).indicatorColor,
-      onSelectionChanged: (c, key) => selectedMenuKey = key,
+      onSelectionChanged: (c, key) {
+        selectedMenuKey = key;
+        setState(() {});
+      },
       menuItems: menuItems.values.toList(),
       selectedMenuKey: selectedMenuKey,
       itemHeight: 60,
