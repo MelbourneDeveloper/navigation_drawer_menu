@@ -74,33 +74,39 @@ class _MyAppState extends State<MyApp> {
                 menuMode: state.menuMode(context),
               ))));
 
-  NavigationDrawerMenu getMenu(BuildContext context) => NavigationDrawerMenu(
-      highlightColor: Theme.of(context).indicatorColor,
-      onSelectionChanged: (c, key) {
-        selectedMenuKey = key;
-        setState(() {});
-      },
-      menuItems: menuItems.values.toList(),
-      selectedMenuKey: selectedMenuKey,
-      itemHeight: 60,
-      itemPadding: const EdgeInsets.only(left: 5, right: 5),
-      buildMenuButtonContent: (mbd, isSelected, bc) => Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: state.menuMode(context) != MenuMode.Thin
-              ? [
-                  getIcon(mbd, isSelected, bc),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(mbd.text,
-                      style: isSelected
-                          ? Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(color: Theme.of(bc).backgroundColor)
-                          : Theme.of(bc).textTheme.bodyText2)
-                ]
-              : [getIcon(mbd, isSelected, bc)]));
+  Widget getMenu(BuildContext context) => Container(
+      color: Colors.pink,
+      child:
+          Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        NavigationDrawerMenu(
+            highlightColor: Theme.of(context).indicatorColor,
+            onSelectionChanged: (c, key) {
+              selectedMenuKey = key;
+              setState(() {});
+            },
+            menuItems: menuItems.values.toList(),
+            selectedMenuKey: selectedMenuKey,
+            itemHeight: 60,
+            itemPadding: const EdgeInsets.only(left: 5, right: 5),
+            buildMenuButtonContent: (mbd, isSelected, bc) => Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: state.menuMode(context) != MenuMode.Thin
+                    ? [
+                        getIcon(mbd, isSelected, bc),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(mbd.text,
+                            style: isSelected
+                                ? Theme.of(context)
+                                    .textTheme
+                                    .bodyText2!
+                                    .copyWith(
+                                        color: Theme.of(bc).backgroundColor)
+                                : Theme.of(bc).textTheme.bodyText2)
+                      ]
+                    : [getIcon(mbd, isSelected, bc)]))
+      ]));
 
   Icon getIcon(MenuItemDefinition mbd, bool isSelected, BuildContext bc) =>
       Icon(mbd.iconData,
