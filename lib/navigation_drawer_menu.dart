@@ -87,7 +87,7 @@ class NavigationDrawerMenu extends StatelessWidget {
 
   NavigationDrawerMenu(
       {required this.onSelectionChanged,
-      required this.selectedMenuKey,
+      this.selectedMenuKey,
       required this.menuItems,
       Key? key,
       this.itemHeight = 60,
