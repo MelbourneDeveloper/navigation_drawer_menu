@@ -24,6 +24,12 @@ const minimumWidthForThickMenu = 700;
 const title = 'navigation_drawer_menu Demo';
 const menuColor = Color(0xFF424242);
 
+final theme = ThemeData(
+    brightness: Brightness.dark,
+    textTheme: const TextTheme(bodyText2: TextStyle(color: Color(0xFFFFFFFF))),
+    primaryColor: Colors.white,
+    backgroundColor: Colors.black);
+
 void main() {
   runApp(const MyApp());
 }
@@ -41,34 +47,23 @@ class _MyAppState extends State<MyApp> {
   final NavigationDrawerState state = NavigationDrawerState();
 
   @override
-  Widget build(BuildContext cont) {
-    return MaterialApp(
-        title: title,
-        theme: ThemeData(
-            brightness: Brightness.dark,
-            textTheme:
-                const TextTheme(bodyText2: TextStyle(color: Color(0xFFFFFFFF))),
-            primaryColor: Colors.white,
-            backgroundColor: Colors.black),
-        home: Builder(builder: (context) {
-          if (state.menuMode(cont) != MenuMode.Drawer) {
-            _scaffoldKey.currentState?.openEndDrawer();
-          }
-
-          return Scaffold(
+  Widget build(BuildContext materialAppContext) => MaterialApp(
+      title: title,
+      theme: theme,
+      home: Builder(
+          builder: (context) => Scaffold(
               key: _scaffoldKey,
               appBar: AppBar(
                 title: const Text(title),
-                leading: Builder(
-                    builder: (context) => IconButton(
-                          icon: const Icon(Icons.menu),
-                          onPressed: () => state.toggle(context),
-                          tooltip: 'Toggle the menu',
-                        )),
+                leading: IconButton(
+                  icon: const Icon(Icons.menu),
+                  onPressed: () => state.toggle(context),
+                  tooltip: 'Toggle the menu',
+                ),
               ),
               drawer: NavigationDrawer(
                 menuBuilder: Builder(builder: getMenu),
-                menuMode: state.menuMode(cont),
+                menuMode: state.menuMode(context),
               ),
               body: NavigationDrawerMenuFrame(
                 body: Builder(
@@ -77,9 +72,7 @@ class _MyAppState extends State<MyApp> {
                 menuBackgroundColor: menuColor,
                 menuBuilder: Builder(builder: getMenu),
                 menuMode: state.menuMode(context),
-              ));
-        }));
-  }
+              ))));
 
   NavigationDrawerMenu getMenu(BuildContext context) => NavigationDrawerMenu(
       highlightColor: Theme.of(context).indicatorColor,

@@ -5,7 +5,7 @@ import 'package:navigation_drawer_menu/navigation_drawer_state.dart';
 ///to the left of your page body and the page body to the right.
 class NavigationDrawerMenuFrame extends StatelessWidget {
   final MenuMode menuMode;
-  final Color menuBackgroundColor;
+  final Color? menuBackgroundColor;
   final Widget body;
   final Builder menuBuilder;
   final double? thinMenuWidth;
@@ -13,7 +13,7 @@ class NavigationDrawerMenuFrame extends StatelessWidget {
 
   NavigationDrawerMenuFrame(
       {required this.menuMode,
-      required this.menuBackgroundColor,
+      this.menuBackgroundColor,
       required this.body,
       required this.menuBuilder,
       this.thinMenuWidth = 60,
