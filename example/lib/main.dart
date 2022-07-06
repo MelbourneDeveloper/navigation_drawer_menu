@@ -74,10 +74,8 @@ class _MyAppState extends State<MyApp> {
                 menuMode: state.menuMode(context),
               ))));
 
-  Widget getMenu(BuildContext context) => Container(
-      color: Colors.pink,
-      child:
-          Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+  Widget getMenu(BuildContext context) =>
+      Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
         NavigationDrawerMenu(
             highlightColor: Theme.of(context).indicatorColor,
             onSelectionChanged: (c, key) {
@@ -106,7 +104,7 @@ class _MyAppState extends State<MyApp> {
                                 : Theme.of(bc).textTheme.bodyText2)
                       ]
                     : [getIcon(mbd, isSelected, bc)]))
-      ]));
+      ]);
 
   Icon getIcon(MenuItemDefinition mbd, bool isSelected, BuildContext bc) =>
       Icon(mbd.iconData,
