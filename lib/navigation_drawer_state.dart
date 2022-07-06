@@ -17,8 +17,10 @@ class NavigationDrawerState {
   final double minimumMenuWidth;
   Key? selectedMenuKey;
 
-  NavigationDrawerState(
-      {this.minimumThickMenuWidth = 700, this.minimumMenuWidth = 500});
+  NavigationDrawerState({
+    this.minimumThickMenuWidth = 700,
+    this.minimumMenuWidth = 500,
+  });
 
   MenuMode menuMode(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -32,6 +34,7 @@ class NavigationDrawerState {
     if (width <= minimumMenuWidth) {
       return MenuMode.Drawer;
     }
+
     return MenuMode.Thin;
   }
 

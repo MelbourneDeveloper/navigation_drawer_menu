@@ -25,15 +25,15 @@ class MenuItemContent {
 }
 
 class _MenuItem extends StatelessWidget {
-  const _MenuItem(
-      {Key? key,
-      required this.menuButtonDefinition,
-      required this.isSelected,
-      required this.onPressed,
-      required this.menuButtonHeight,
-      required this.highlightColor,
-      required this.content})
-      : super(key: key);
+  const _MenuItem({
+    Key? key,
+    required this.menuButtonDefinition,
+    required this.isSelected,
+    required this.onPressed,
+    required this.menuButtonHeight,
+    required this.highlightColor,
+    required this.content,
+  }) : super(key: key);
 
   final Function() onPressed;
   final double menuButtonHeight;
@@ -45,13 +45,15 @@ class _MenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Builder(
         builder: (context) => SizedBox(
-            height: menuButtonHeight,
-            child: TextButton(
-                onPressed: onPressed,
-                style: TextButton.styleFrom(
-                    backgroundColor:
-                        isSelected ? highlightColor : Colors.transparent),
-                child: content)),
+          height: menuButtonHeight,
+          child: TextButton(
+            onPressed: onPressed,
+            style: TextButton.styleFrom(
+              backgroundColor: isSelected ? highlightColor : Colors.transparent,
+            ),
+            child: content,
+          ),
+        ),
       );
 }
 
@@ -68,8 +70,11 @@ class NavigationDrawerMenu extends StatelessWidget {
 
   ///Build the content for the menu item button based on the
   ///[MenuItemDefinition]
-  final Widget Function(MenuItemDefinition menuButtonDefinition,
-      bool isSelected, BuildContext context) buildMenuButtonContent;
+  final Widget Function(
+    MenuItemDefinition menuButtonDefinition,
+    bool isSelected,
+    BuildContext context,
+  ) buildMenuButtonContent;
 
   /// The current menu index, and the mechanism for listening to the change of
   /// the index externally
@@ -80,39 +85,48 @@ class NavigationDrawerMenu extends StatelessWidget {
 
   ///The callback that is called when the menu item is selected
   final void Function(
-          BuildContext context, ValueKey<String> selectedMenuItemKey)
-      onSelectionChanged;
+    BuildContext context,
+    ValueKey<String> selectedMenuItemKey,
+  ) onSelectionChanged;
 
-  NavigationDrawerMenu(
-      {required this.onSelectionChanged,
-      this.selectedMenuKey,
-      required this.menuItems,
-      Key? key,
-      this.itemHeight = 60,
-      required this.highlightColor,
-      required this.itemPadding,
-      required this.buildMenuButtonContent})
-      : super(key: key);
+  NavigationDrawerMenu({
+    required this.onSelectionChanged,
+    this.selectedMenuKey,
+    required this.menuItems,
+    Key? key,
+    this.itemHeight = 60,
+    required this.highlightColor,
+    required this.itemPadding,
+    required this.buildMenuButtonContent,
+  }) : super(key: key);
 
   List<Widget> getWidgets(BuildContext context) => menuItems
-      .map((element) =>
-          element.widget ?? buildMenuButton(context, element.menuItem!))
+      .map(
+        (element) =>
+            element.widget ?? buildMenuButton(context, element.menuItem!),
+      )
       .toList();
 
   Widget buildMenuButton(
-          BuildContext context, MenuItemDefinition menuButtonDefinition) =>
+    BuildContext context,
+    MenuItemDefinition menuButtonDefinition,
+  ) =>
       Padding(
         padding: itemPadding,
         child: _MenuItem(
-            menuButtonDefinition: menuButtonDefinition,
-            menuButtonHeight: itemHeight,
-            highlightColor: highlightColor,
-            key: menuButtonDefinition.key,
-            isSelected: selectedMenuKey == menuButtonDefinition.key,
-            content: buildMenuButtonContent(menuButtonDefinition,
-                selectedMenuKey == menuButtonDefinition.key, context),
-            onPressed: () =>
-                onSelectionChanged(context, menuButtonDefinition.key)),
+          menuButtonDefinition: menuButtonDefinition,
+          menuButtonHeight: itemHeight,
+          highlightColor: highlightColor,
+          key: menuButtonDefinition.key,
+          isSelected: selectedMenuKey == menuButtonDefinition.key,
+          content: buildMenuButtonContent(
+            menuButtonDefinition,
+            selectedMenuKey == menuButtonDefinition.key,
+            context,
+          ),
+          onPressed: () =>
+              onSelectionChanged(context, menuButtonDefinition.key),
+        ),
       );
 
   @override

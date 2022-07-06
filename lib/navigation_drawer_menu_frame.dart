@@ -11,21 +11,23 @@ class NavigationDrawerMenuFrame extends StatelessWidget {
   final double? thinMenuWidth;
   final double? thickMenuWidth;
 
-  NavigationDrawerMenuFrame(
-      {required this.menuMode,
-      this.menuBackgroundColor,
-      required this.body,
-      required this.menuBuilder,
-      this.thinMenuWidth = 60,
-      this.thickMenuWidth = 200});
+  NavigationDrawerMenuFrame({
+    required this.menuMode,
+    this.menuBackgroundColor,
+    required this.body,
+    required this.menuBuilder,
+    this.thinMenuWidth = 60,
+    this.thickMenuWidth = 200,
+  });
 
   @override
   Widget build(BuildContext context) => Row(children: [
         if (menuMode != MenuMode.Drawer)
           Container(
-              width: menuMode == MenuMode.Thin ? thinMenuWidth : thickMenuWidth,
-              color: menuBackgroundColor,
-              child: menuBuilder.build(context)),
-        Expanded(child: body)
+            width: menuMode == MenuMode.Thin ? thinMenuWidth : thickMenuWidth,
+            color: menuBackgroundColor,
+            child: menuBuilder.build(context),
+          ),
+        Expanded(child: body),
       ]);
 }

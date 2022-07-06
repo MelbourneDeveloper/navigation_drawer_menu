@@ -5,12 +5,15 @@ class NavigationDrawer extends StatelessWidget {
   final Builder menuBuilder;
   final MenuMode menuMode;
 
-  NavigationDrawer(
-      {Key? key, required this.menuBuilder, required this.menuMode})
-      : super(key: key);
+  NavigationDrawer({
+    Key? key,
+    required this.menuBuilder,
+    required this.menuMode,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [if (menuMode == MenuMode.Drawer) menuBuilder.build(context)]);
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [if (menuMode == MenuMode.Drawer) menuBuilder.build(context)],
+      );
 }
