@@ -79,6 +79,7 @@ class _MyAppState extends State<MyApp> {
             highlightColor: Theme.of(context).indicatorColor,
             onSelectionChanged: (c, key) {
               selectedMenuKey = key;
+              state.closeDrawer(c);
               setState(() {});
             },
             menuItems: menuItems.values.toList(),

@@ -51,4 +51,10 @@ class NavigationDrawerState {
         : _MenuThickness.thick;
     _toggleDrawer(context);
   }
+
+  void closeDrawer(BuildContext context) {
+    if (Scaffold.of(context).isDrawerOpen) {
+      Scaffold.of(context).openEndDrawer();
+    }
+  }
 }
