@@ -1,6 +1,6 @@
 name: navigation_drawer_menu
 description: Flutter Material Design Navigation Drawer Menu. This package gives you the NavigationDrawerMenu widget which acts like a ListView. The example implements the full Navigation Drawer.
-version: 0.2.0-beta
+version: 1.0.0-beta
 homepage: https://github.com/MelbourneDeveloper/navigation_drawer_menu
 
 environment:
