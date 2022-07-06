@@ -83,7 +83,6 @@ class _MyAppState extends State<MyApp> {
             },
             menuItems: menuItems.values.toList(),
             selectedMenuKey: selectedMenuKey,
-            itemHeight: 60,
             itemPadding: const EdgeInsets.only(left: 5, right: 5),
             buildMenuButtonContent: (mbd, isSelected, bc) => Row(
                 mainAxisAlignment: MainAxisAlignment.center,

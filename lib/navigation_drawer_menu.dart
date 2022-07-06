@@ -90,7 +90,7 @@ class NavigationDrawerMenu extends StatelessWidget {
       required this.selectedMenuKey,
       required this.menuItems,
       Key? key,
-      required this.itemHeight,
+      this.itemHeight = 60,
       required this.highlightColor,
       required this.itemPadding,
       required this.buildMenuButtonContent})
@@ -108,28 +108,25 @@ class NavigationDrawerMenu extends StatelessWidget {
       .toList();
 
   Widget buildMenuButton(
-      BuildContext context, MenuItemDefinition menuButtonDefinition) {
-    return Padding(
-      padding: itemPadding,
-      child: _MenuItem(
-          menuButtonDefinition: menuButtonDefinition,
-          menuButtonHeight: itemHeight,
-          highlightColor: highlightColor,
-          key: menuButtonDefinition.key,
-          isSelected: selectedMenuKey == menuButtonDefinition.key,
-          content: buildMenuButtonContent(menuButtonDefinition,
-              selectedMenuKey == menuButtonDefinition.key, context),
-          onPressed: () =>
-              onSelectionChanged(context, menuButtonDefinition.key)),
-    );
-  }
+          BuildContext context, MenuItemDefinition menuButtonDefinition) =>
+      Padding(
+        padding: itemPadding,
+        child: _MenuItem(
+            menuButtonDefinition: menuButtonDefinition,
+            menuButtonHeight: itemHeight,
+            highlightColor: highlightColor,
+            key: menuButtonDefinition.key,
+            isSelected: selectedMenuKey == menuButtonDefinition.key,
+            content: buildMenuButtonContent(menuButtonDefinition,
+                selectedMenuKey == menuButtonDefinition.key, context),
+            onPressed: () =>
+                onSelectionChanged(context, menuButtonDefinition.key)),
+      );
 
   @override
-  Widget build(BuildContext context) {
-    return Column(children: [
-      Column(
-        children: getWidgets(context),
-      ),
-    ]);
-  }
+  Widget build(BuildContext context) => Column(children: [
+        Column(
+          children: getWidgets(context),
+        ),
+      ]);
 }
