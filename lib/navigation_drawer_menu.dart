@@ -14,17 +14,24 @@ class MenuItemDefinition {
 /// Defines the content that will appear in the menu.
 @immutable
 class MenuItemContent {
+  final Widget? widget;
+  final MenuItemDefinition? menuItem;
+
   MenuItemContent({this.menuItem, this.widget})
       : assert(menuItem != null || widget != null,
             'You must specify a menu item or a widget'),
         assert(menuItem == null || widget == null,
             'You must not pecify a menu item and a widget');
-
-  final Widget? widget;
-  final MenuItemDefinition? menuItem;
 }
 
 class _MenuItem extends StatelessWidget {
+  final Function() onPressed;
+  final double menuButtonHeight;
+  final Color highlightColor;
+  final Widget content;
+  final MenuItemDefinition menuButtonDefinition;
+  final bool isSelected;
+
   const _MenuItem({
     Key? key,
     required this.menuButtonDefinition,
@@ -34,13 +41,6 @@ class _MenuItem extends StatelessWidget {
     required this.highlightColor,
     required this.content,
   }) : super(key: key);
-
-  final Function() onPressed;
-  final double menuButtonHeight;
-  final Color highlightColor;
-  final Widget content;
-  final MenuItemDefinition menuButtonDefinition;
-  final bool isSelected;
 
   @override
   Widget build(BuildContext context) => Builder(

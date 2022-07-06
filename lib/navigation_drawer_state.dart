@@ -12,11 +12,12 @@ enum _MenuThickness { thick, thin }
 ///Your app should only have one of these and you need
 ///to keep track of it globally.
 class NavigationDrawerState {
-  _MenuThickness _menuThickness = _MenuThickness.thick;
+
   final double minimumThickMenuWidth;
   final double minimumMenuWidth;
   Key? selectedMenuKey;
-
+  _MenuThickness _menuThickness = _MenuThickness.thick;
+  
   NavigationDrawerState({
     this.minimumThickMenuWidth = 700,
     this.minimumMenuWidth = 500,
@@ -38,16 +39,6 @@ class NavigationDrawerState {
     return MenuMode.Thin;
   }
 
-  void _toggleDrawer(BuildContext context) {
-    if (menuMode(context) == MenuMode.Drawer) {
-      if (Scaffold.of(context).isDrawerOpen) {
-        Scaffold.of(context).openEndDrawer();
-      } else {
-        Scaffold.of(context).openDrawer();
-      }
-    }
-  }
-
   void toggle(BuildContext context) {
     _menuThickness = _menuThickness == _MenuThickness.thick
         ? _MenuThickness.thin
@@ -58,6 +49,16 @@ class NavigationDrawerState {
   void closeDrawer(BuildContext context) {
     if (Scaffold.of(context).isDrawerOpen) {
       Scaffold.of(context).openEndDrawer();
+    }
+  }
+
+  void _toggleDrawer(BuildContext context) {
+    if (menuMode(context) == MenuMode.Drawer) {
+      if (Scaffold.of(context).isDrawerOpen) {
+        Scaffold.of(context).openEndDrawer();
+      } else {
+        Scaffold.of(context).openDrawer();
+      }
     }
   }
 }
