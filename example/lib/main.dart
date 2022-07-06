@@ -55,7 +55,10 @@ class _MyAppState extends State<MyApp> {
                   leading: Builder(
                     builder: (iconButtonBuilderContext) => IconButton(
                       icon: const Icon(Icons.menu),
-                      onPressed: () => state.toggle(iconButtonBuilderContext),
+                      onPressed: () {
+                        state.toggle(iconButtonBuilderContext);
+                        setState(() {});
+                      },
                       tooltip: 'Toggle the menu',
                     ),
                   )),
@@ -65,11 +68,12 @@ class _MyAppState extends State<MyApp> {
               ),
               body: NavigationDrawerMenuFrame(
                 body: Builder(
-                    builder: (c) => state.selectedMenuKey == null
-                        ? const Text('No Selection')
-                        : Icon(menuItems[state.selectedMenuKey]!
-                            .menuItem!
-                            .iconData)),
+                    builder: (c) => Center(
+                        child: state.selectedMenuKey == null
+                            ? const Text('No Selection')
+                            : Icon(menuItems[state.selectedMenuKey]!
+                                .menuItem!
+                                .iconData))),
                 menuBackgroundColor: menuColor,
                 menuBuilder: Builder(builder: getMenu),
                 menuMode: state.menuMode(context),
@@ -87,24 +91,21 @@ class _MyAppState extends State<MyApp> {
             menuItems: menuItems.values.toList(),
             selectedMenuKey: state.selectedMenuKey,
             itemPadding: const EdgeInsets.only(left: 5, right: 5),
-            buildMenuButtonContent: (mbd, isSelected, bc) => Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: state.menuMode(context) != MenuMode.Thin
-                    ? [
-                        getIcon(mbd, isSelected, bc),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(mbd.text,
-                            style: isSelected
-                                ? Theme.of(context)
-                                    .textTheme
-                                    .bodyText2!
-                                    .copyWith(
-                                        color: Theme.of(bc).backgroundColor)
-                                : Theme.of(bc).textTheme.bodyText2)
-                      ]
-                    : [getIcon(mbd, isSelected, bc)]))
+            buildMenuButtonContent: (menuItemDefinition, isSelected,
+                    buildContentContext) =>
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  getIcon(menuItemDefinition, isSelected, buildContentContext),
+                  if (state.menuMode(context) != MenuMode.Thin)
+                    const SizedBox(
+                      width: 10,
+                    ),
+                  Text(menuItemDefinition.text,
+                      style: isSelected
+                          ? Theme.of(context).textTheme.bodyText2!.copyWith(
+                              color:
+                                  Theme.of(buildContentContext).backgroundColor)
+                          : Theme.of(buildContentContext).textTheme.bodyText2)
+                ]))
       ]);
 
   Icon getIcon(MenuItemDefinition mbd, bool isSelected, BuildContext bc) =>
