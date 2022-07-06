@@ -12,6 +12,7 @@ dependencies:
   material: ^1.0.0+2
 
 dev_dependencies:
+  dart_code_metrics: ^4.16.0
   lints: ^1.0.1
   pedantic: ^1.11.1
   test:
