@@ -10,11 +10,14 @@ const photoValueKey = ValueKey('Photo');
 
 final Map<Key, MenuItemContent> menuItems = {
   alarmValueKey: MenuItemContent(
-      MenuItemDefinition("Alarm", alarmValueKey, iconData: Icons.access_alarm)),
-  todoValueKey: MenuItemContent(MenuItemDefinition("Todo", todoValueKey,
-      iconData: Icons.ad_units_rounded)),
-  photoValueKey: MenuItemContent(MenuItemDefinition("Photo", photoValueKey,
-      iconData: Icons.add_a_photo_outlined))
+      menuItem: MenuItemDefinition("Alarm", alarmValueKey,
+          iconData: Icons.access_alarm)),
+  todoValueKey: MenuItemContent(
+      menuItem: MenuItemDefinition("Todo", todoValueKey,
+          iconData: Icons.ad_units_rounded)),
+  photoValueKey: MenuItemContent(
+      menuItem: MenuItemDefinition("Photo", photoValueKey,
+          iconData: Icons.add_a_photo_outlined))
 };
 
 const title = 'navigation_drawer_menu Demo';

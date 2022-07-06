@@ -14,16 +14,14 @@ class MenuItemDefinition {
 /// Defines the content that will appear in the menu.
 @immutable
 class MenuItemContent {
-  MenuItemContent(this.menuItem) {
-    widget = null;
-  }
+  MenuItemContent({this.menuItem, this.widget})
+      : assert(menuItem != null || widget != null,
+            'You must specify a menu item or a widget'),
+        assert(menuItem == null || widget == null,
+            'You must not pecify a menu item and a widget');
 
-  MenuItemContent.widget(this.widget) {
-    menuItem = null;
-  }
-
-  late final Widget? widget;
-  late final MenuItemDefinition? menuItem;
+  final Widget? widget;
+  final MenuItemDefinition? menuItem;
 }
 
 class _MenuItem extends StatelessWidget {

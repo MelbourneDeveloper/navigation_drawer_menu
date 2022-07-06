@@ -387,6 +387,10 @@ analyzer:
     missing_enum_constant_in_switch: error
     subtype_of_sealed_class: error
 
+#Like this:
+#dart run dart_code_metrics:metrics check-unused-code lib example/lib
+
+
 dart_code_metrics:
   anti-patterns:
     - long-method
