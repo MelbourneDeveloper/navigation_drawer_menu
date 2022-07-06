@@ -42,7 +42,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   ValueKey<String> selectedMenuKey = alarmValueKey;
   final NavigationDrawerState state = NavigationDrawerState();
 
@@ -52,15 +51,15 @@ class _MyAppState extends State<MyApp> {
       theme: theme,
       home: Builder(
           builder: (context) => Scaffold(
-              key: _scaffoldKey,
               appBar: AppBar(
-                title: const Text(title),
-                leading: IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () => state.toggle(context),
-                  tooltip: 'Toggle the menu',
-                ),
-              ),
+                  title: const Text(title),
+                  leading: Builder(
+                    builder: (iconButtonBuilderContext) => IconButton(
+                      icon: const Icon(Icons.menu),
+                      onPressed: () => state.toggle(iconButtonBuilderContext),
+                      tooltip: 'Toggle the menu',
+                    ),
+                  )),
               drawer: NavigationDrawer(
                 menuBuilder: Builder(builder: getMenu),
                 menuMode: state.menuMode(context),
