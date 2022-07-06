@@ -96,12 +96,6 @@ class NavigationDrawerMenu extends StatelessWidget {
       required this.buildMenuButtonContent})
       : super(key: key);
 
-  Icon getIcon(MenuItemDefinition mbd, bool isSelected, BuildContext bc) =>
-      Icon(mbd.iconData,
-          color: isSelected
-              ? Theme.of(bc).backgroundColor
-              : Theme.of(bc).textTheme.bodyText2!.color);
-
   List<Widget> getWidgets(BuildContext context) => menuItems
       .map((element) =>
           element.widget ?? buildMenuButton(context, element.menuItem!))
