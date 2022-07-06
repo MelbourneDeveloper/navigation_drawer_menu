@@ -17,8 +17,6 @@ final Map<Key, MenuItemContent> menuItems = {
       iconData: Icons.add_a_photo_outlined))
 };
 
-const minimumWidthForMenu = 500;
-const minimumWidthForThickMenu = 700;
 const title = 'navigation_drawer_menu Demo';
 const menuColor = Color(0xFF424242);
 
