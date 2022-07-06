@@ -15,6 +15,7 @@ class NavigationDrawerState {
   _MenuThickness _menuThickness = _MenuThickness.thick;
   final double minimumThickMenuWidth;
   final double minimumMenuWidth;
+  Key? selectedMenuKey;
 
   NavigationDrawerState(
       {this.minimumThickMenuWidth = 700, this.minimumMenuWidth = 500});

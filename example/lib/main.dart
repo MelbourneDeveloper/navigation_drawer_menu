@@ -42,7 +42,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ValueKey<String> selectedMenuKey = alarmValueKey;
   final NavigationDrawerState state = NavigationDrawerState();
 
   @override
@@ -66,8 +65,11 @@ class _MyAppState extends State<MyApp> {
               ),
               body: NavigationDrawerMenuFrame(
                 body: Builder(
-                    builder: (c) =>
-                        Icon(menuItems[selectedMenuKey]!.menuItem!.iconData)),
+                    builder: (c) => state.selectedMenuKey == null
+                        ? const Text('No Selection')
+                        : Icon(menuItems[state.selectedMenuKey]!
+                            .menuItem!
+                            .iconData)),
                 menuBackgroundColor: menuColor,
                 menuBuilder: Builder(builder: getMenu),
                 menuMode: state.menuMode(context),
@@ -78,12 +80,12 @@ class _MyAppState extends State<MyApp> {
         NavigationDrawerMenu(
             highlightColor: Theme.of(context).indicatorColor,
             onSelectionChanged: (c, key) {
-              selectedMenuKey = key;
+              state.selectedMenuKey = key;
               state.closeDrawer(c);
               setState(() {});
             },
             menuItems: menuItems.values.toList(),
-            selectedMenuKey: selectedMenuKey,
+            selectedMenuKey: state.selectedMenuKey,
             itemPadding: const EdgeInsets.only(left: 5, right: 5),
             buildMenuButtonContent: (mbd, isSelected, bc) => Row(
                 mainAxisAlignment: MainAxisAlignment.center,
