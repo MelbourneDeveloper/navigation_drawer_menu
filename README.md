@@ -42,15 +42,15 @@ flutter create --platforms=android
 This is a widget that basically functions like a [`ListView`](https://api.flutter.dev/flutter/widgets/ListView-class.html). However, it exists to remove some of the boilerplate code necessary for constructing the menu, and allows you to put arbitrary sized spacers and headings inside the menu. The example uses this set of definitions. If you don't want to use this widget, you can use `ListView` instead.
 
 ```Dart
-final menuItems = [
-  MenuItemContent(
-      MenuItemDefinition("Alarm", alarmValueKey, iconData: Icons.access_alarm)),
-  MenuItemContent(MenuItemDefinition("Todo", todoValueKey,
-      iconData: Icons.ad_units_rounded)),
-  MenuItemContent.widget(const SizedBox(
-    height: 30,
-  )),
-  MenuItemContent(MenuItemDefinition("Photo", photoValueKey,
-      iconData: Icons.add_a_photo_outlined))
-];
+final Map<Key, MenuItemContent> menuItems = {
+  alarmValueKey: MenuItemContent(
+      menuItem: MenuItemDefinition("Alarm", alarmValueKey,
+          iconData: Icons.access_alarm)),
+  todoValueKey: MenuItemContent(
+      menuItem: MenuItemDefinition("Todo", todoValueKey,
+          iconData: Icons.ad_units_rounded)),
+  photoValueKey: MenuItemContent(
+      menuItem: MenuItemDefinition("Photo", photoValueKey,
+          iconData: Icons.add_a_photo_outlined))
+};
 ```

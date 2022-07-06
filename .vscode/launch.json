@@ -2,7 +2,14 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Menu Sample",
+            "name": "macOS Menu Sample",
+            "request": "launch",
+            "type": "dart",
+            "program": "example/lib/main.dart",
+            "deviceId": "macos"
+        },
+        {
+            "name": "Windows Menu Sample",
             "request": "launch",
             "type": "dart",
             "program": "example/lib/main.dart",

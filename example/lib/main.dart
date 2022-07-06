@@ -1,28 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:navigation_drawer_menu/navigation_drawer.dart';
 import 'package:navigation_drawer_menu/navigation_drawer_menu.dart';
-
-enum MenuMode { Drawer, Thin, Thick }
+import 'package:navigation_drawer_menu/navigation_drawer_menu_frame.dart';
+import 'package:navigation_drawer_menu/navigation_drawer_state.dart';
 
 const alarmValueKey = ValueKey('Alarm');
 const todoValueKey = ValueKey('Todo');
 const photoValueKey = ValueKey('Photo');
 
-final menuItems = [
-  MenuItemContent(
-      MenuItemDefinition("Alarm", alarmValueKey, iconData: Icons.access_alarm)),
-  MenuItemContent(MenuItemDefinition("Todo", todoValueKey,
-      iconData: Icons.ad_units_rounded)),
-  MenuItemContent.widget(const SizedBox(
-    height: 30,
-  )),
-  MenuItemContent(MenuItemDefinition("Photo", photoValueKey,
-      iconData: Icons.add_a_photo_outlined))
-];
+final Map<Key, MenuItemContent> menuItems = {
+  alarmValueKey: MenuItemContent(
+      menuItem: MenuItemDefinition("Alarm", alarmValueKey,
+          iconData: Icons.access_alarm)),
+  todoValueKey: MenuItemContent(
+      menuItem: MenuItemDefinition("Todo", todoValueKey,
+          iconData: Icons.ad_units_rounded)),
+  photoValueKey: MenuItemContent(
+      menuItem: MenuItemDefinition("Photo", photoValueKey,
+          iconData: Icons.add_a_photo_outlined))
+};
 
-const minimumWidthForMenu = 500;
-const minimumWidthForThickMenu = 700;
 const title = 'navigation_drawer_menu Demo';
 const menuColor = Color(0xFF424242);
+
+final theme = ThemeData(
+    brightness: Brightness.dark,
+    textTheme: const TextTheme(bodyText2: TextStyle(color: Color(0xFFFFFFFF))),
+    primaryColor: Colors.white,
+    backgroundColor: Colors.black);
 
 void main() {
   runApp(const MyApp());
@@ -35,116 +40,78 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-extension on BuildContext {
-  MenuMode getMenuMode(bool isThin) {
-    final width = MediaQuery.of(this).size.width;
-    if (width > minimumWidthForThickMenu) {
-      return !isThin ? MenuMode.Thick : MenuMode.Thin;
-    }
-    if (width <= minimumWidthForMenu) {
-      return MenuMode.Drawer;
-    }
-    return MenuMode.Thin;
-  }
-}
-
 class _MyAppState extends State<MyApp> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final ValueNotifier<Key> valueNotifier = ValueNotifier<Key>(alarmValueKey);
-  bool isThin = false;
-
-  void toggleDrawer(MenuMode menuMode) {
-    if (menuMode != MenuMode.Drawer) {
-      setState(() {});
-    } else {
-      if (_scaffoldKey.currentState!.isDrawerOpen) {
-        _scaffoldKey.currentState!.openEndDrawer();
-      } else {
-        _scaffoldKey.currentState!.openDrawer();
-      }
-    }
-  }
+  final NavigationDrawerState state = NavigationDrawerState();
 
   @override
-  Widget build(BuildContext cont) {
-    return MaterialApp(
-        title: title,
-        theme: ThemeData(
-            brightness: Brightness.dark,
-            textTheme:
-                const TextTheme(bodyText2: TextStyle(color: Color(0xFFFFFFFF))),
-            primaryColor: Colors.white,
-            backgroundColor: Colors.black),
-        home: Builder(builder: (context) {
-          if (context.getMenuMode(isThin) != MenuMode.Drawer) {
-            _scaffoldKey.currentState?.openEndDrawer();
-          }
-
-          return Scaffold(
-              key: _scaffoldKey,
+  Widget build(BuildContext materialAppContext) => MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: title,
+      theme: theme,
+      home: Builder(
+          builder: (context) => Scaffold(
               appBar: AppBar(
-                title: const Text(title),
-                leading: Builder(
-                    builder: (context) => IconButton(
-                          icon: const Icon(Icons.menu),
-                          onPressed: () {
-                            isThin = !isThin;
-                            toggleDrawer(context.getMenuMode(isThin));
-                          },
-                          tooltip: 'Toggle the menu',
-                        )),
+                  title: const Text(title),
+                  leading: Builder(
+                    builder: (iconButtonBuilderContext) => IconButton(
+                      icon: const Icon(Icons.menu),
+                      onPressed: () {
+                        state.toggle(iconButtonBuilderContext);
+                        setState(() {});
+                      },
+                      tooltip: 'Toggle the menu',
+                    ),
+                  )),
+              drawer: NavigationDrawer(
+                menuBuilder: Builder(builder: getMenu),
+                menuMode: state.menuMode(context),
               ),
-              drawer: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    if (context.getMenuMode(isThin) == MenuMode.Drawer)
-                      getMenu(context)
-                  ]),
-              body: Container(
-                  color: menuColor,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (context.getMenuMode(isThin) != MenuMode.Drawer)
-                          SizedBox(
-                              width:
-                                  context.getMenuMode(isThin) == MenuMode.Thin
-                                      ? 60
-                                      : 200,
-                              child: Container(
-                                  color: menuColor, child: getMenu(context)))
-                      ])));
-        }));
-  }
+              body: NavigationDrawerMenuFrame(
+                body: Builder(
+                    builder: (c) => Center(
+                        child: state.selectedMenuKey == null
+                            ? const Text('No Selection')
+                            : Icon(menuItems[state.selectedMenuKey]!
+                                .menuItem!
+                                .iconData))),
+                menuBackgroundColor: menuColor,
+                menuBuilder: Builder(builder: getMenu),
+                menuMode: state.menuMode(context),
+              ))));
 
-  NavigationDrawerMenu getMenu(BuildContext context) => NavigationDrawerMenu(
-      getHighlightColor: () => Theme.of(context).indicatorColor,
-      onSelectionChanged: (key) => toggleDrawer(context.getMenuMode(isThin)),
-      menuItemContentList: ValueNotifier(menuItems),
-      selectedMenuKey: valueNotifier,
-      itemHeight: 60,
-      itemPadding: const EdgeInsets.only(left: 5, right: 5),
-      buildMenuButtonContent: (mbd, isSelected, bc) => Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: context.getMenuMode(isThin) != MenuMode.Thin
-              ? [
-                  getIcon(mbd, isSelected, bc),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(mbd.text,
-                      style: isSelected
-                          ? Theme.of(context)
+  Widget getMenu(BuildContext context) =>
+      Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        NavigationDrawerMenu(
+            highlightColor: Theme.of(context).indicatorColor,
+            onSelectionChanged: (c, key) {
+              state.selectedMenuKey = key;
+              state.closeDrawer(c);
+              setState(() {});
+            },
+            menuItems: menuItems.values.toList(),
+            selectedMenuKey: state.selectedMenuKey,
+            itemPadding: const EdgeInsets.only(left: 5, right: 5),
+            buildMenuButtonContent: (menuItemDefinition, isSelected,
+                    buildContentContext) =>
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Icon(menuItemDefinition.iconData,
+                      color: isSelected
+                          ? Theme.of(buildContentContext).backgroundColor
+                          : Theme.of(buildContentContext)
                               .textTheme
                               .bodyText2!
-                              .copyWith(color: Theme.of(bc).backgroundColor)
-                          : Theme.of(bc).textTheme.bodyText2)
-                ]
-              : [getIcon(mbd, isSelected, bc)]));
-
-  Icon getIcon(MenuItemDefinition mbd, bool isSelected, BuildContext bc) =>
-      Icon(mbd.iconData,
-          color: isSelected
-              ? Theme.of(bc).backgroundColor
-              : Theme.of(bc).textTheme.bodyText2!.color);
+                              .color),
+                  if (state.menuMode(context) != MenuMode.Thin)
+                    const SizedBox(
+                      width: 10,
+                    ),
+                  if (state.menuMode(context) != MenuMode.Thin)
+                    Text(menuItemDefinition.text,
+                        style: isSelected
+                            ? Theme.of(context).textTheme.bodyText2!.copyWith(
+                                color: Theme.of(buildContentContext)
+                                    .backgroundColor)
+                            : Theme.of(buildContentContext).textTheme.bodyText2)
+                ]))
+      ]);
 }

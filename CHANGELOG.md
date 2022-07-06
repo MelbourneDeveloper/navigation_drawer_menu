@@ -1,2 +1,3 @@
 - 0.1.0-beta | Create the package and example
 - 0.2.0-beta | Fix the exception: FlutterError Incorrect use of ParentDataWidget
+- 1.0.0-beta | Add `NavigationDrawerMenuFrame` and `NavigationDrawer` so it's easy to integrate the menu with your existing scaffold. There are several breaking changes in this build. `MenuItemContent` now takes named parameters in the constructor. `selectedMenuKey` is no longer a `ValueNotifier<Key?>`. It is a simple `Key?`. You must supply a callback to `onSelectionChanged` to monitor menu changes. `highlightColor` replaces `getHighlightColor`. For a more complete picture, please take a look at the example.
