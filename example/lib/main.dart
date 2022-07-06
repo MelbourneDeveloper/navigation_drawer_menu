@@ -4,8 +4,6 @@ import 'package:navigation_drawer_menu/navigation_drawer_menu.dart';
 import 'package:navigation_drawer_menu/navigation_drawer_menu_frame.dart';
 import 'package:navigation_drawer_menu/navigation_drawer_state.dart';
 
-enum MenuMode { Drawer, Thin, Thick }
-
 const alarmValueKey = ValueKey('Alarm');
 const todoValueKey = ValueKey('Todo');
 const photoValueKey = ValueKey('Photo');
@@ -91,22 +89,28 @@ class _MyAppState extends State<MyApp> {
             menuItems: menuItems.values.toList(),
             selectedMenuKey: state.selectedMenuKey,
             itemPadding: const EdgeInsets.only(left: 5, right: 5),
-            buildMenuButtonContent: (menuItemDefinition, isSelected,
-                    buildContentContext) =>
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  getIcon(menuItemDefinition, isSelected, buildContentContext),
-                  if (state.menuMode(context) != MenuMode.Thin)
-                    const SizedBox(
-                      width: 10,
-                    ),
-                  if (state.menuMode(context) != MenuMode.Thin)
-                    Text(menuItemDefinition.text,
-                        style: isSelected
-                            ? Theme.of(context).textTheme.bodyText2!.copyWith(
-                                color: Theme.of(buildContentContext)
-                                    .backgroundColor)
-                            : Theme.of(buildContentContext).textTheme.bodyText2)
-                ]))
+            buildMenuButtonContent:
+                (menuItemDefinition, isSelected, buildContentContext) {
+              return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    getIcon(
+                        menuItemDefinition, isSelected, buildContentContext),
+                    if (state.menuMode(context) != MenuMode.Thin)
+                      const SizedBox(
+                        width: 10,
+                      ),
+                    if (state.menuMode(context) != MenuMode.Thin)
+                      Text(menuItemDefinition.text,
+                          style: isSelected
+                              ? Theme.of(context).textTheme.bodyText2!.copyWith(
+                                  color: Theme.of(buildContentContext)
+                                      .backgroundColor)
+                              : Theme.of(buildContentContext)
+                                  .textTheme
+                                  .bodyText2)
+                  ]);
+            })
       ]);
 
   Icon getIcon(MenuItemDefinition mbd, bool isSelected, BuildContext bc) =>
