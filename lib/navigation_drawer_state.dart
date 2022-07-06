@@ -36,8 +36,7 @@ class NavigationDrawerState {
   }
 
   void _toggleDrawer(BuildContext context) {
-    if (menuMode(context) != MenuMode.Drawer) {
-    } else {
+    if (menuMode(context) == MenuMode.Drawer) {
       if (Scaffold.of(context).isDrawerOpen) {
         Scaffold.of(context).openEndDrawer();
       } else {

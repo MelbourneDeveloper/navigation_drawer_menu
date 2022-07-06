@@ -99,12 +99,13 @@ class _MyAppState extends State<MyApp> {
                     const SizedBox(
                       width: 10,
                     ),
-                  Text(menuItemDefinition.text,
-                      style: isSelected
-                          ? Theme.of(context).textTheme.bodyText2!.copyWith(
-                              color:
-                                  Theme.of(buildContentContext).backgroundColor)
-                          : Theme.of(buildContentContext).textTheme.bodyText2)
+                  if (state.menuMode(context) != MenuMode.Thin)
+                    Text(menuItemDefinition.text,
+                        style: isSelected
+                            ? Theme.of(context).textTheme.bodyText2!.copyWith(
+                                color: Theme.of(buildContentContext)
+                                    .backgroundColor)
+                            : Theme.of(buildContentContext).textTheme.bodyText2)
                 ]))
       ]);
 
