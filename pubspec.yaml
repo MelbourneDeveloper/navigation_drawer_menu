@@ -9,7 +9,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  material: ^1.0.0+2
 
 dev_dependencies:
   dart_code_metrics: ^4.16.0

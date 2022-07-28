@@ -9,3 +9,4 @@ Add `NavigationDrawerMenuFrame` and `NavigationDrawer` so it's easy to integrate
 ```dart
 enum MenuMode { drawer, thin, thick }
 ```
+- Remove the `material` dependency. 
