@@ -14,6 +14,6 @@ class NavigationDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [if (menuMode == MenuMode.Drawer) menuBuilder.build(context)],
+        children: [if (menuMode == MenuMode.drawer) menuBuilder.build(context)],
       );
 }

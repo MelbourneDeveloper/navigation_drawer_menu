@@ -101,11 +101,11 @@ class _MyAppState extends State<MyApp> {
                               .textTheme
                               .bodyText2!
                               .color),
-                  if (state.menuMode(context) != MenuMode.Thin)
+                  if (state.menuMode(context) != MenuMode.thin)
                     const SizedBox(
                       width: 10,
                     ),
-                  if (state.menuMode(context) != MenuMode.Thin)
+                  if (state.menuMode(context) != MenuMode.thin)
                     Text(menuItemDefinition.text,
                         style: isSelected
                             ? Theme.of(context).textTheme.bodyText2!.copyWith(

@@ -22,9 +22,9 @@ class NavigationDrawerMenuFrame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Row(children: [
-        if (menuMode != MenuMode.Drawer)
+        if (menuMode != MenuMode.drawer)
           Container(
-            width: menuMode == MenuMode.Thin ? thinMenuWidth : thickMenuWidth,
+            width: menuMode == MenuMode.thin ? thinMenuWidth : thickMenuWidth,
             color: menuBackgroundColor,
             child: menuBuilder.build(context),
           ),

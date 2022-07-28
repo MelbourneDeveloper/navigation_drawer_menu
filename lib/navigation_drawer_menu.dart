@@ -25,7 +25,7 @@ class MenuItemContent {
 }
 
 class _MenuItem extends StatelessWidget {
-  final Function() onPressed;
+  final void Function() onPressed;
   final double menuButtonHeight;
   final Color highlightColor;
   final Widget content;
