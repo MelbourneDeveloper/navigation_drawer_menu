@@ -1,3 +1,5 @@
+include: package:lints/recommended.yaml
+
 linter:
   rules:
     - always_declare_return_types
@@ -166,11 +168,15 @@ linter:
 #Changing the severity of rules
 #https://dart-lang.github.io/linter/lints/options/options.html
 analyzer:
+  language:
+    strict-inference: true
+    strict-raw-types: true
+  plugins:
+    - dart_code_metrics
+  strong-mode:
+    implicit-casts: false
+    implicit-dynamic: false
   exclude:
-    - lib/**.pb.dart
-    - lib/**.pbenum.dart
-    - lib/**.pbgrpc.dart
-    - lib/**.pbjson.dart
   errors:
     always_declare_return_types: error
     always_put_control_body_on_new_line: error
@@ -244,6 +250,7 @@ analyzer:
     flutter_style_todos: error
     hash_and_equals: error
     implementation_imports: error
+    inference_failure_on_function_return_type: error
     invalid_visibility_annotation: error
     invalid_use_of_visible_for_testing_member: error
     invariant_booleans: error
@@ -319,12 +326,14 @@ analyzer:
     public_member_api_docs: error
     recursive_getters: error
     require_trailing_commas: error
+    sdk_version_constructor_tearoffs: error
     sized_box_for_whitespace: error
     slash_for_doc_comments: error
     sort_child_properties_last: error
     sort_constructors_first: error
     sort_pub_dependencies: error
     sort_unnamed_constructors_first: error
+    strict_raw_type: error
     test_types_in_equals: error
     throw_in_finally: error
     tighten_type_of_initializing_formals: error
@@ -379,6 +388,7 @@ analyzer:
     null_check_always_fails: error
     unused_element: error
     must_be_immutable: error
+    deprecated_member_use: error
     unnecessary_type_check: error
     invalid_use_of_protected_member: error
     unnecessary_null_comparison: error
@@ -387,38 +397,37 @@ analyzer:
     missing_enum_constant_in_switch: error
     subtype_of_sealed_class: error
 
-#Like this:
-#dart run dart_code_metrics:metrics check-unused-code lib example/lib
-#dart run dart_code_metrics:metrics analyze lib example/lib
-
 dart_code_metrics:
   anti-patterns:
-    - long-method
-    - long-parameter-list
+    - long-method:
+        severity: error
+    - long-parameter-list:
+        severity: error
   metrics:
     cyclomatic-complexity: 20
     maximum-nesting-level: 5
     number-of-parameters: 4
     source-lines-of-code: 50
     weight-of-class: 0.33
-    halstead-volume: 150
   metrics-exclude:
-    - test/**
   rules:
-    - avoid_restricted_imports
-    - avoid-global-state
-    - avoid-ignoring-return-values
-    - avoid-late-keyword
-    - avoid-unused-parameters
-    - format-comment
-    - member-ordering-extended
-    - newline-before-return
-    - no-boolean-literal-compare
-    - no-empty-block
-    - no-equal-then-else
-    - no-equal-arguments
-    - no-magic-number
-    - prefer-async-await
-    - prefer-immediate-return
-    - prefer-trailing-comma
-    - prefer-conditional-expressions
+    - newline-before-return:
+        severity: error
+    - no-boolean-literal-compare:
+        severity: error
+    - no-empty-block:
+        severity: error
+    - prefer-trailing-comma:
+        severity: error
+    - prefer-conditional-expressions:
+        severity: error
+    - no-equal-then-else:
+        severity: error
+    - avoid_restricted_imports:
+        severity: error
+    - avoid-global-state:
+        severity: error
+    - avoid-ignoring-return-values:
+        severity: error
+    - avoid-late-keyword:
+        severity: error
